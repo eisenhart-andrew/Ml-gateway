@@ -1,6 +1,7 @@
 import pandas as pd
+import numpy
 
-def analyzer(filename):
+def data_loader(filename,n):
     """loads data from filename"""
     
     
@@ -10,16 +11,14 @@ def analyzer(filename):
     elif filename.endswith('.csv'):
         raw = pd.read_csv(filename,header=None)
     else:
-        """ edge cases with weird delimiters taken care of with read_table """
-        
         raw = pd.read_table(filename,header=None,delimiter=';')
-        if len(raw.columns) != 2:
+        if len(raw.columns) != n:
             raw = pd.read_table(filename,header=None,delimiter=',')
-            if len(raw.columns) != 2:
+            if len(raw.columns) != n:
                 raw = pd.read_table(filename,header=None,delimiter=':')
-                if len(raw.columns) != 2:
+                if len(raw.columns) != n:
                     raw = pd.read_table(filename,header=None,delimiter='/')
-                    if len(raw.columns) != 2:
+                    if len(raw.columns) != n:
                         print('ERROR: set delimiter to \';\' and rerun')
                     else:
                         pass
@@ -29,5 +28,20 @@ def analyzer(filename):
                 pass
         else:
             pass
-    
-    
+        pass
+    print(raw)
+    if type(raw.iloc[0,0]) == str:
+        feat_list = raw[0].tolist()
+        unique_feat = list(set(feat_list))
+        unique_keys = dict.fromkeys(unique_feat)
+        unique_values = list(range(0,len(unique_keys)))
+        unique_dict = dict(zip(unique_keys, unique_values))
+        """"TODO create file here with Ids connected to original feature strings"""
+        print('raw_pre:', raw)
+        raw[0] = raw[0].map(unique_dict)
+        print('raw_post:', raw)
+        print(list(set(raw[0])))
+    elif type(raw.iloc[0,0]) == numpy.int64:
+        pass
+    else:
+        pass   
