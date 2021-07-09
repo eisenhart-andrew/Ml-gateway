@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy
+import csv
 
 def data_loader(filename,n):
     """loads data from filename"""
@@ -29,18 +30,19 @@ def data_loader(filename,n):
         else:
             pass
         pass
-    print(raw)
     if type(raw.iloc[0,0]) == str:
         feat_list = raw[0].tolist()
         unique_feat = list(set(feat_list))
         unique_keys = dict.fromkeys(unique_feat)
         unique_values = list(range(0,len(unique_keys)))
         unique_dict = dict(zip(unique_keys, unique_values))
-        """"TODO create file here with Ids connected to original feature strings"""
+        """"Create key:value file to record ID original values"""
+        w = csv.writer(open("ID_key.csv", "w"))
+        for key, val in unique_dict.items():
+            w.writerow([key, val])
         print('raw_pre:', raw)
         raw[0] = raw[0].map(unique_dict)
         print('raw_post:', raw)
-        print(list(set(raw[0])))
     elif type(raw.iloc[0,0]) == numpy.int64:
         pass
     else:
