@@ -94,10 +94,13 @@ def remove_missing(data,threshold):
 
 def standardize_split(data):
     scaler = StandardScaler()
-    scaler.fit(data)
-    scaled_data = scaler.transform(data)
-    return scaled_data
-    
+    for column in data.columns:
+        if data[column].dtype == 'int64':
+            scaler.fit(data[column])  
+            data[column] = scaler.transform(data[column])
+        
+    return data
+        
     
     
     
