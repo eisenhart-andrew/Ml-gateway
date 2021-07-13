@@ -7,7 +7,7 @@ Created on Fri Jul  9 10:02:15 2021
 import csv
 import random
 
-def generator():
+def generator(gen_missing=False):
 
     first = ["Andrew", "Bob", "Cindy", "Dave", "Ethan"]
     last = ["Anderson", "Brown","Cox","Donaldson", "Ender"]
@@ -21,12 +21,18 @@ def generator():
         rand2 = random.randrange(0,len(last))
         name = first[rand1] +" "+ last[rand2]
         rand3 = random.random()
-        if rand3 > 0.55:
-            true_or_false = "True"
-        elif rand3 < 0.45:
-            true_or_false = "False"
+        if gen_missing == True:
+            if rand3 > 0.55:
+                true_or_false = "True"
+            elif rand3 < 0.45:
+                true_or_false = "False"
+            else:
+                true_or_false = ""
         else:
-            true_or_false = ""
+            if rand3 > 0.50:
+                true_or_false = "True"
+            elif rand3 <= 0.50:
+                true_or_false = "False"
         entry = [name, random.random(),true_or_false]
         my_list.append(entry)
         i+=1

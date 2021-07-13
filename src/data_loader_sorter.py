@@ -43,7 +43,7 @@ def data_loader(filename,n):
             unique_values = list(range(0,len(unique_keys)))
             unique_dict = dict(zip(unique_keys, unique_values))
             """"Create key:value file to record ID original values"""
-            w = csv.writer(open(f"ID_key-{it}.csv", "w"))
+            w = csv.writer(open(f"./../Keys/ID_key-{it}.csv", "w"))
             for key, val in unique_dict.items():
                 w.writerow([key, val])
             raw[it] = raw[it].map(unique_dict)
@@ -55,7 +55,7 @@ def data_loader(filename,n):
             unique_values = list(range(0,len(unique_keys)))
             unique_dict = dict(zip(unique_keys, unique_values))
             """"Create key:value file to record ID original values"""
-            w = csv.writer(open(f"ID_key-{it}.csv", "w", newline=''))
+            w = csv.writer(open(f"./../Keys/ID_key-{it}.csv", "w", newline=''))
             for key, val in unique_dict.items():
                 w.writerow([key, val])
             raw[it] = raw[it].map(unique_dict)
