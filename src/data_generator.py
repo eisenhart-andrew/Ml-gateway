@@ -7,7 +7,7 @@ Created on Fri Jul  9 10:02:15 2021
 import csv
 import random
 
-def generator(gen_missing=False):
+def generator_classification(gen_missing=False):
 
     first = ["Andrew", "Bob", "Cindy", "Dave", "Ethan"]
     last = ["Anderson", "Brown","Cox","Donaldson", "Ender"]
@@ -34,6 +34,31 @@ def generator(gen_missing=False):
             elif rand3 <= 0.50:
                 true_or_false = "False"
         entry = [name, random.random(),true_or_false]
+        my_list.append(entry)
+        i+=1
+        
+    with open('DATA.csv', 'w') as f:
+          
+        # using csv.writer method from CSV package
+        write = csv.writer(f)
+          
+        write.writerows(my_list)
+        
+def generator_regression(gen_missing=False):
+
+    first = ["Andrew", "Bob", "Cindy", "Dave", "Ethan"]
+    last = ["Anderson", "Brown","Cox","Donaldson", "Ender"]
+    
+    my_list =[]
+    
+    loopcount = 1000
+    i = 1
+    while i < loopcount:
+        rand1 = random.randrange(0,len(first))
+        rand2 = random.randrange(0,len(last))
+        name = first[rand1] +" "+ last[rand2]
+        target = random.random()
+        entry = [name, random.random(),target]
         my_list.append(entry)
         i+=1
         

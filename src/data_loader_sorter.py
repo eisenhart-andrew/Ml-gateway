@@ -86,20 +86,17 @@ def remove_missing(data,threshold):
         no_missing = data
         print(f'Replacing {missing.sum()} entries. These make up \
               {missing.sum()/len(data)*100} % of the total data.')
-    no_missing_X = no_missing.iloc[:,0:len(no_missing.columns)]
+    no_missing_X = no_missing.iloc[:,0:len(no_missing.columns)-1]
     no_missing_y = no_missing.iloc[:,len(no_missing.columns)-1]
     return no_missing_X, no_missing_y
 
       
 
-def standardize_split(data):
+def standardize(X):
     scaler = StandardScaler()
-    for column in data.columns:
-        if data[column].dtype == 'int64':
-            scaler.fit(data[column])  
-            data[column] = scaler.transform(data[column])
-        
-    return data
+    scaler.fit(X)
+    Scaled_X = scaler.transform(X)
+    return Scaled_X
         
     
     
